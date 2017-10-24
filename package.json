@@ -1,0 +1,22 @@
+{
+  "name": "my-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha ./tests/index.js",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
+  },
+  "author": "cmswalker",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.5.0",
+    "cheerio": "^1.0.0-rc.2",
+    "maybe-try": "^1.0.7",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "sinon": "^4.0.1"
+  }
+}
