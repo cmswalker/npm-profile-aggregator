@@ -1,7 +1,9 @@
 # my-npm-profile :hatched_chick:
 NPM Profile Aggregator
 
-Node and Browser Compatible, use it anywhere
+Node and Browser Compatible, use it anywhere.
+
+Want to test it out? Attach it to the window by using this [script](https://raw.githubusercontent.com/cmswalker/my-npm-profile/master/myNpmProfile.js)
 
 ```
 npm install my-npm-profile --save
