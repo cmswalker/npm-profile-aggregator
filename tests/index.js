@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const request = require('../request');
 
-const myNpm = require('../index');
+const myNpmProfile = require('../index');
 
 const downloadKeys = ['lastDay', 'lastWeek', 'lastMonth'];
 const schemaKeys = ['author', 'modules'];
@@ -15,7 +15,7 @@ describe('npm-user-data', function() {
     let result;
 
     before((done) => {
-      myNpm('cmswalker', (err, res) => {
+      myNpmProfile('cmswalker', (err, res) => {
         assert.ok(!err);
         assert.ok(res);
 
@@ -51,7 +51,7 @@ describe('npm-user-data', function() {
         cb(new Error('Stub Error', {}, {}));
       });
 
-      myNpm('cmswalker', (err, res) => {
+      myNpmProfile('cmswalker', (err, res) => {
         assert.ok(!err);
         assert.ok(res);
 

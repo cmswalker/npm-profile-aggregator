@@ -1,10 +1,10 @@
-# my-npm :hatched_chick:
+# my-npm-profile :hatched_chick:
 NPM Profile Aggregator
 
 Node and Browser Compatible, use it anywhere
 
 ```
-npm install my-npm --save
+npm install my-npm-profile --save
 ```
 
 ### One API method to aggregate your NPM stats
@@ -13,11 +13,11 @@ Everything is pre-bundled into one function
 Usage
 
 ```javascript
-const myNpm = require('myNpm');
+const myNpmProfile = require('my-npm-profile');
 
 const npmUserName = 'tom123';
 
-myNpm(npmUserName, (err, response) => {
+myNpmProfile(npmUserName, (err, response) => {
   // ...that's it!
 });
 ```

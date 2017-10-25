@@ -1,14 +1,14 @@
 {
-  "name": "my-npm",
+  "name": "my-npm-profile",
   "version": "1.0.0",
   "description": "NPM Profile Aggregator",
-  "main": "./myNpm.js",
+  "main": "./myNpmProfile.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cmswalker/my-npm.git"
+    "url": "git+https://github.com/cmswalker/my-npm-profile.git"
   },
   "bugs": {
-   "url": "cmswalker/my-npm/issues"
+   "url": "cmswalker/my-npm-profile/issues"
  },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha ./tests/index.js",

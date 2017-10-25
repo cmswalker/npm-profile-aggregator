@@ -43,10 +43,10 @@ const config = {
 
 if (isProduction) {
   config.output = {
-    filename: 'myNpm.js',
+    filename: 'myNpmProfile.js',
     path: __dirname,
     publicPath: '/',
-    library: 'myNpm',
+    library: 'myNpmProfile',
     libraryTarget: 'umd',
     umdNamedDefine: true
   };
