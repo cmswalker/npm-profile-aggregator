@@ -1,15 +1,17 @@
-const request = require('request');
-const async = require('async');
-const cheerio = require('cheerio');
+const { auto, map } = require('async');
 const maybeTry = require('maybe-try');
 
-const timeout = 2000;
+const { get } = require('./request');
+
 const baseUri = 'https://www.npmjs.com';
 const rootUrl = 'https://registry.cnpmjs.org';
 
 const endpoints = {
   byUser: `${rootUrl}/-/by-user`,
-  byModule: `${rootUrl}`
+  byModule: `${rootUrl}`,
+  downloads: function(start, end, pkgName) {
+    return `https://api.npmjs.org/downloads/range/${start}:${end}/${pkgName}`;
+  }
 };
 
 module.exports = fetch;
@@ -19,9 +21,8 @@ function fetch(username, callback) {
     return callback(new Error('username is required'));
   }
 
-  async.auto({
+  auto({
     moduleList: (cb) => getModules(username, cb),
-    userProfile: (cb) => getUserProfile(username, cb),
     downloads: ['moduleList', (results, cb) => getModuleListDownloads(results.moduleList, cb)],
     modules: ['moduleList', (results, cb) => getModuleListDetails(results.moduleList, cb)]
   }, (err, result) => {
@@ -40,49 +41,6 @@ function generateEmptyDownloads() {
     lastWeek: 0,
     lastMonth: 0
   };
-}
-
-function getUserProfile(username, callback) {
-  const profileUrl = `${baseUri}/~${username}`;
-
-  fetchProfile(profileUrl, maybeTry.callback(generateEmptyUser(username), (err, profile) => {
-    return callback(err, profile.result);
-  }));
-}
-
-function generateEmptyUser(username) {
-  return {
-    username,
-    avatar: '',
-    homepage: '',
-    github: '',
-    twitter: '',
-    freenode: ''
-  };
-}
-
-function fetchProfile(url, callback) {
-  request.get(url, (err, result, body) => {
-    if (err) {
-      return callback(err);
-    }
-
-    const $ = cheerio.load(body);
-
-		let avatar = $('.avatar img').attr('src');
-		avatar = avatar ? avatar.replace(/^(https:\/\/)s\./, '$1').replace(/&default=retro$/, '') : null;
-
-		const userData = {
-			username: $('.fullname').text() || null,
-			avatar,
-			homepage: $('.homepage a').attr('href') || null,
-			github: $('.github a').text().slice(1) || null,
-			twitter: $('.twitter a').text().slice(1) || null,
-			freenode: $('.freenode a').text() || null
-		};
-
-    callback(null, userData);
-  });
 }
 
 function formatResult(username, result) {
@@ -119,11 +77,11 @@ function formatResult(username, result) {
     finalResult.modules.push(module);
   });
 
-  finalResult.author = Object.assign({}, result.userProfile, {
+  finalResult.author = {
     username,
     link: generateUserUrl(username),
     downloads: authorDownlods
-  });
+  };
 
   return finalResult;
 }
@@ -145,7 +103,7 @@ function getModules(username, callback) {
 }
 
 function getModuleList(username, endpoint, callback) {
-  request.get(endpoint, { timeout }, (err, response, body) => {
+  get(endpoint, (err, body) => {
     if (err) {
       return callback(err);
     }
@@ -173,7 +131,7 @@ function generateModuleDetail() {
 }
 
 function getModuleListDetails(moduleList, callback) {
-  async.map(moduleList, (moduleName, cb) => {
+  map(moduleList, (moduleName, cb) => {
     const moduleEndpoint = `${endpoints.byModule}/${moduleName}/latest`;
     getModuleDetail(moduleEndpoint, maybeTry.callback(generateModuleDetail(), (err, detail) => {
       cb(err, detail.result);
@@ -189,7 +147,7 @@ function getModuleListDetails(moduleList, callback) {
 }
 
 function getModuleDetail(endpoint, callback) {
-  request.get(endpoint, {timeout}, (err, response, body) => {
+  get(endpoint, (err, body) => {
     if (err) {
       return callback(err);
     }
@@ -211,9 +169,48 @@ const downloadTags = {
   lastMonth: 'monthly-downloads'
 };
 
+function generateDates(daysFromStart) {
+  daysFromStart = daysFromStart || 0;
+
+  var today = new Date();
+  var searchDate = new Date();
+  var search = new Date(searchDate.setDate(searchDate.getDate() - daysFromStart));
+
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+
+  var sdd = search.getDate();
+  var smm = search.getMonth() + 1;
+
+  var yyyy = today.getFullYear();
+  var syyyy = search.getFullYear();
+
+  checkDates(dd, mm);
+  checkDates(sdd, smm);
+
+  var start = [syyyy, smm, sdd].join('-');
+  var end = [yyyy, mm, dd].join('-');
+
+  return {
+    start,
+    end
+  };
+}
+
+function checkDates(dd, mm) {
+  if (dd < 10) {
+      dd= '0' + dd;
+  }
+  if (mm < 10) {
+      mm= '0' + mm;
+  }
+}
+
 function getModuleListDownloads(moduleList, callback) {
-  async.map(moduleList, (moduleName, cb) => {
-      const moduleEndpoint = `${baseUri}/${moduleName}`;
+  map(moduleList, (moduleName, cb) => {
+      const { start, end } = generateDates(30);
+      const moduleEndpoint = endpoints.downloads(start, end, moduleName);
+
       getModuleDownloads(moduleEndpoint, maybeTry.callback(generateEmptyDownloads(), (err, downloads) => {
         if (err) {
           return cb(err);
@@ -238,20 +235,34 @@ function getModuleListDownloads(moduleList, callback) {
 }
 
 function getModuleDownloads(moduleEndpoint, callback) {
-  request.get(moduleEndpoint, { timeout }, (err, response, body) => {
+  get(moduleEndpoint, (err, response) => {
     if (err) {
       return callback(err);
     }
 
-    const $ = cheerio.load(body);
+    const { downloads = [] } = response;
+    const today = 1;
+    const week = 7;
+    const month = 30;
 
-    const downloads = Object.keys(downloadTags).reduce((result, tag) => {
-      const downloadCount = $(`.${downloadTags[tag]}`).text();
-      result[tag] = Number(downloadCount);
-      return result;
-    }, {});
+    const result = generateEmptyDownloads(); //lastDay, lastWeek, lastMonth
 
-    callback(null, downloads);
+    downloads.forEach((obj, i) => {
+      const count = obj.downloads;
+      if (i <= today) {
+        result.lastDay += count;
+      }
+
+      if (i <= week) {
+        result.lastWeek += count;
+      }
+
+      if (i <= month) {
+        result.lastMonth += count;
+      }
+    });
+
+    callback(null, result);
   });
 }
 

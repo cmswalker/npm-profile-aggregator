@@ -1,10 +1,11 @@
 const assert = require('assert');
-const request = require('request');
 const sinon = require('sinon');
 
-const npmUserData = require('../index');
-const downloadKeys = ['lastDay', 'lastWeek', 'lastMonth'];
+const request = require('../request');
 
+const myNpm = require('../index');
+
+const downloadKeys = ['lastDay', 'lastWeek', 'lastMonth'];
 const schemaKeys = ['author', 'modules'];
 
 describe('npm-user-data', function() {
@@ -14,7 +15,7 @@ describe('npm-user-data', function() {
     let result;
 
     before((done) => {
-      npmUserData('cmswalker', (err, res) => {
+      myNpm('cmswalker', (err, res) => {
         assert.ok(!err);
         assert.ok(res);
 
@@ -50,7 +51,7 @@ describe('npm-user-data', function() {
         cb(new Error('Stub Error', {}, {}));
       });
 
-      npmUserData('cmswalker', (err, res) => {
+      myNpm('cmswalker', (err, res) => {
         assert.ok(!err);
         assert.ok(res);
 
@@ -77,7 +78,7 @@ function schemaTest(result) {
 }
 
 function authorTest(author) {
-  const required = ['username', 'link', 'downloads', 'homepage', 'github', 'twitter', 'avatar'];
+  const required = ['username', 'link', 'downloads'];
 
   assert.ok(author);
   required.forEach((key) => {

@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlwebpackPlugin = require('html-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const isProduction = ENV === 'production';
@@ -33,7 +32,7 @@ const config = {
     ]
   },
 
-  target: 'web', // enum
+  target: 'web',
   stats: 'errors-only',
 
   plugins: [],
@@ -43,11 +42,6 @@ const config = {
 }
 
 if (isProduction) {
-  // config.externals = {
-  //   'React': 'react',
-  //   'ReactDOM': 'react-dom'
-  // };
-
   config.output = {
     filename: 'myNpm.js',
     path: __dirname,
@@ -64,9 +58,8 @@ if (isProduction) {
       sourceMap: true
     })
   );
-
 }
 
-console.log('config', config);
+console.log('Wepback Config', config);
 
 module.exports = config;

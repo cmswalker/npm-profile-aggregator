@@ -1,19 +1,39 @@
 {
   "name": "my-npm",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "NPM Profile Aggregator",
+  "main": "./myNpm.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmswalker/my-npm.git"
+  },
+  "bugs": {
+   "url": "cmswalker/my-npm/issues"
+ },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha ./tests/index.js",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack"
   },
   "author": "cmswalker",
   "license": "ISC",
+  "keywords": [
+    "npm",
+    "my-npm",
+    "npm-profile",
+    "profile",
+    "npm user",
+    "user profile",
+    "user metrics",
+    "npm profile",
+    "npm downloads",
+    "downloads",
+    "metrics",
+    "module downloads"
+  ],
   "dependencies": {
     "async": "^2.5.0",
-    "cheerio": "^1.0.0-rc.2",
     "maybe-try": "^1.0.7",
-    "request": "^2.83.0"
+    "superagent": "^3.7.0"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
