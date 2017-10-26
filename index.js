@@ -241,26 +241,30 @@ function getModuleDownloads(moduleEndpoint, callback) {
     }
 
     const { downloads = [] } = response;
-    const today = 1;
-    const week = 7;
-    const month = 30;
+
+    const month = downloads.length;
+    const week = month - 7;
+    const today = month - 1;
 
     const result = generateEmptyDownloads(); //lastDay, lastWeek, lastMonth
 
-    downloads.forEach((obj, i) => {
+    // Must traverse backwards due to response
+    for (let i = month - 1; i >= 0; i--) {
+      const obj = downloads[i];
       const count = obj.downloads;
-      if (i <= today) {
+
+      if (i >= today) {
         result.lastDay += count;
       }
 
-      if (i <= week) {
+      if (i >= week) {
         result.lastWeek += count;
       }
 
-      if (i <= month) {
+      if (i && i <= month) {
         result.lastMonth += count;
       }
-    });
+    }
 
     callback(null, result);
   });
