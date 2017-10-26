@@ -1,6 +1,85 @@
-body
-  background-color red
-  font-family helvetica
+$white = #fff
+$dark-gray = #494947
+$bone = #E6E8E6
+$light-gray = #CED0CE
+$green = #9FB8AD
 
-  input
-    background-color grey
+$margin = 10px;
+$padding = 10px;
+
+body
+  font-size 1.5em
+  display flex
+  align-items center
+  background-color $bone
+  font-family helvetica
+  margin 0px
+
+  @media screen and (max-width: 600px)
+    font-size 1.15em
+
+  a
+    font-weight bold
+
+  #app
+    background-color $white
+    width 90%
+    margin 0 auto
+
+    #title
+
+    #ui, #profile-section
+      padding 20px
+
+.sub-title
+  font-weight bold
+
+.section
+  overflow-wrap break-word
+  display flex
+  padding $padding
+  margin-top 20px
+  box-shadow 2px 5px 10px $light-gray
+
+  @media screen and (max-width: 600px)
+    flex-direction column
+
+.user-section
+  flex 1
+  padding $padding
+
+.module-main
+  flex 1
+  padding $padding
+  @media screen and (min-width: 599px)
+    min-width 300px
+
+.downloads
+  @media screen and (min-width: 599px)
+    min-width 300px
+  flex 1
+  padding $padding
+  color $white
+  background-color $green
+
+.module-sub
+  @media screen and (min-width: 599px)
+    min-width 300px
+  flex 1
+  padding $padding
+  background-color $bone
+
+#loading
+  color $bone
+  padding-top 40%
+  display none
+  font-size 3em
+  text-align center
+  margin 0 auto
+  position absolute
+  top 0
+  left 0
+  height 100%
+  width 100%
+  background-color rgba(73, 73, 71, .7)
+  z-index 100
