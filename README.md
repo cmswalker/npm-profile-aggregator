@@ -3,7 +3,10 @@ NPM Profile Aggregator
 
 Node and Browser Compatible, use it anywhere.
 
-Want to test it out? Attach it to the window by using this [script](https://raw.githubusercontent.com/cmswalker/my-npm-profile/master/myNpmProfile.js)
+Want to test it out?
+
+Checkout the [Demo](https://cmswalker.github.io/my-npm-profile/)
+or drop it into the window using this [script](https://raw.githubusercontent.com/cmswalker/my-npm-profile/master/myNpmProfile.js)
 
 ```
 npm install my-npm-profile --save
