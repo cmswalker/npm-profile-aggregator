@@ -266,6 +266,15 @@ function getModuleDownloads(moduleEndpoint, callback) {
       }
     }
 
+    // NOTE: due to timezone differences, lastDay could be empty as the endpoint is not letting you dial backwards
+    // to the full 24-hr time period of "the day" in UTC, in these cases, lastDay should just reflect yesterday.
+    if (!result.lastDay) {
+      const yesterday = downloads[downloads.length - 2];
+      if (yesterday) {
+          result.lastDay = yesterday.downloads;
+      }
+    }
+
     callback(null, result);
   });
 }
