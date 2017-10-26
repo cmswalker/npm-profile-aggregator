@@ -2,7 +2,6 @@
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
-/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
@@ -1294,7 +1293,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  font-size: 1.5em;\n  display: flex;\n  align-items: center;\n  background-color: #e6e8e6;\n  font-family: helvetica;\n  margin: 0px;\n}\n@media screen and (max-width: 600px) {\n  body {\n    font-size: 1.15em;\n  }\n}\nbody a {\n  font-weight: bold;\n}\nbody #app {\n  background-color: #fff;\n  width: 90%;\n  margin: 0 auto;\n}\nbody #app #title,\nbody #app #ui,\nbody #app #profile-section {\n  padding: 20px;\n}\n.sub-title {\n  font-weight: bold;\n}\n.section {\n  overflow-wrap: break-word;\n  display: flex;\n  padding: 10px;\n  margin-top: 20px;\n  box-shadow: 2px 5px 10px #ced0ce;\n}\n@media screen and (max-width: 600px) {\n  .section {\n    flex-direction: column;\n  }\n}\n.user-section {\n  flex: 1;\n  padding: 10px;\n}\n.module-main {\n  flex: 1;\n  padding: 10px;\n}\n@media screen and (min-width: 599px) {\n  .module-main {\n    min-width: 300px;\n  }\n}\n.downloads {\n  flex: 1;\n  padding: 10px;\n  color: #fff;\n  background-color: #9fb8ad;\n}\n@media screen and (min-width: 599px) {\n  .downloads {\n    min-width: 300px;\n  }\n}\n.module-sub {\n  flex: 1;\n  padding: 10px;\n  background-color: #e6e8e6;\n}\n@media screen and (min-width: 599px) {\n  .module-sub {\n    min-width: 300px;\n  }\n}\n#loading {\n  color: #e6e8e6;\n  padding-top: 40%;\n  display: none;\n  font-size: 3em;\n  text-align: center;\n  margin: 0 auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background-color: rgba(73,73,71,0.7);\n  z-index: 100;\n}\n", ""]);
+exports.push([module.i, "body {\n  font-size: 1.5em;\n  display: flex;\n  align-items: center;\n  background-color: #e6e8e6;\n  font-family: helvetica;\n  margin: 0px;\n}\n@media screen and (max-width: 900px) {\n  body {\n    font-size: 1.15em;\n  }\n}\nbody a {\n  font-weight: bold;\n}\nbody #app {\n  background-color: #fff;\n  width: 90%;\n  margin: 0 auto;\n}\nbody #app #title,\nbody #app #ui,\nbody #app #profile-section {\n  padding: 20px;\n}\n.sub-title {\n  font-weight: bold;\n}\n.section {\n  overflow-wrap: break-word;\n  display: flex;\n  padding: 10px;\n  margin-top: 20px;\n  box-shadow: 2px 5px 10px #ced0ce;\n  flex-direction: column;\n}\n.user-section {\n  flex: 1;\n  padding: 10px;\n}\n.module-main {\n  flex: 1;\n  padding: 10px;\n}\n.downloads {\n  flex: 1;\n  padding: 10px;\n  color: #fff;\n  background-color: #9fb8ad;\n}\n.module-sub {\n  flex: 1;\n  padding: 10px;\n  background-color: #e6e8e6;\n}\n#loading {\n  color: #e6e8e6;\n  padding-top: 40%;\n  display: none;\n  font-size: 3em;\n  text-align: center;\n  margin: 0 auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background-color: rgba(73,73,71,0.7);\n  z-index: 100;\n}\n", ""]);
 
 // exports
 
