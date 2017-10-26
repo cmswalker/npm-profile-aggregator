@@ -1,3 +1,4 @@
+
 const path = require('path');
 const webpack = require('webpack');
 
@@ -10,18 +11,26 @@ const config = {
   context: __dirname, // string (absolute path!)
 
   entry: {
-    index: path.join(__dirname, 'index.js')
+    index: path.join(__dirname, 'src/index.js')
   },
 
   output: {
-    filename: '[name].js',
-    path: path.join(__dirname, '/dist/'),
-    publicPath: '/',
+    filename: '[name].bundle.js',
+    path: path.join(__dirname, 'js'),
+    publicPath: '/js',
     chunkFilename: '[id].chunk.js'
   },
 
   module: {
     rules: [
+      {
+       test: /\.css$/,
+       use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+       test: /\.styl$/,
+       use: [ 'style-loader', 'css-loader', 'stylus-loader' ]
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: [
@@ -32,34 +41,37 @@ const config = {
     ]
   },
 
-  target: 'web',
+  target: 'web', // enum
   stats: 'errors-only',
 
+  devServer: {
+    port: 3030,
+    compress: true, // enable gzip compression
+    historyApiFallback: true, // true for index.html upon 404, object for multiple paths
+    // hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
+    https: false, // true for self-signed, object for cert authority
+    noInfo: true, // only errors & warns on hot reload
+  },
+
   plugins: [],
+  // Don't follow/bundle these modules, but request them at runtime from the environment
   externals: [],
 
   devtool: 'source-map'
 }
 
 if (isProduction) {
-  config.output = {
-    filename: 'myNpmProfile.js',
-    path: __dirname,
-    publicPath: '/',
-    library: 'myNpmProfile',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
-  };
+  // config.plugins.push(
+  //   new webpack.optimize.UglifyJsPlugin({
+  //     compress: true,
+  //     comments: false,
+  //     sourceMap: true
+  //   })
+  // );
+} else {
 
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: true,
-      comments: false,
-      sourceMap: true
-    })
-  );
 }
 
-console.log('Wepback Config', config);
+console.log('config', config);
 
 module.exports = config;
