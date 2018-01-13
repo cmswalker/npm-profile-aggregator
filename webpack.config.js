@@ -1,29 +1,30 @@
 const path = require('path');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 
-const ENV = process.env.NODE_ENV || 'development';
-const isProduction = ENV === 'production';
+const resolve = {
+  mainFields: ["browser", "module", "main"]
+};
 
-console.log('BUILDING WEBPACK FOR ENV', ENV, isProduction);
-
-const config = {
-  context: __dirname, // string (absolute path!)
-
+const browserConfig = {
+  target: 'web',
+  context: __dirname,
+  resolve,
   entry: {
-    index: path.join(__dirname, 'index.js')
+    index: path.join(__dirname, 'lib', 'index.js')
   },
-
   output: {
-    filename: '[name].js',
-    path: path.join(__dirname, '/dist/'),
+    filename: 'myNpmProfile.js',
+    path: __dirname,
     publicPath: '/',
-    chunkFilename: '[id].chunk.js'
+    library: 'myNpmProfile',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
-
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         exclude: [
           /node_modules/
         ],
@@ -31,35 +32,45 @@ const config = {
       }
     ]
   },
-
-  target: 'web',
   stats: 'errors-only',
-
-  plugins: [],
+  plugins: [new webpack.optimize.UglifyJsPlugin({
+    compress: true,
+    comments: false,
+    sourceMap: true
+  })],
   externals: [],
-
   devtool: 'source-map'
-}
+};
 
-if (isProduction) {
-  config.output = {
-    filename: 'myNpmProfile.js',
+const nodeConfig = {
+  target: 'node',
+  context: __dirname,
+  resolve,
+  entry: {
+    index: path.join(__dirname, 'lib', 'index.js')
+  },
+  output: {
+    filename: 'myNpmProfile.node.js',
     path: __dirname,
     publicPath: '/',
     library: 'myNpmProfile',
     libraryTarget: 'umd',
-    umdNamedDefine: true
-  };
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: [
+          /node_modules/
+        ],
+        loader: 'babel-loader'
+      }
+    ]
+  },
+  stats: 'errors-only',
+  plugins: [],
+  externals: [nodeExternals()],
+  devtool: 'source-map'
+};
 
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: true,
-      comments: false,
-      sourceMap: true
-    })
-  );
-}
-
-console.log('Wepback Config', config);
-
-module.exports = config;
+module.exports = [browserConfig, nodeConfig];

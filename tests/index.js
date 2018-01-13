@@ -1,9 +1,8 @@
 const assert = require('assert');
 const sinon = require('sinon');
+const request = require('superagent');
 
-const request = require('../request');
-
-const myNpmProfile = require('../index');
+const { fetch } = require('../myNpmProfile.node');
 
 const downloadKeys = ['lastDay', 'lastWeek', 'lastMonth'];
 const schemaKeys = ['author', 'modules'];
@@ -15,7 +14,7 @@ describe('npm-user-data', function() {
     let result;
 
     before((done) => {
-      myNpmProfile('cmswalker', (err, res) => {
+      fetch('cmswalker', (err, res) => {
         assert.ok(!err);
         assert.ok(res);
 
@@ -41,17 +40,26 @@ describe('npm-user-data', function() {
 
   describe('error path', () => {
     const sandbox = sinon.sandbox.create();
-    let stub;
     let result;
 
     before((done) => {
-      stub = sandbox.stub(request, 'get').callsFake(function() {
-        const args = Array.prototype.slice.call(arguments);
-        const cb = args.pop();
-        cb(new Error('Stub Error', {}, {}));
-      });
+      class reqStub {
+        timeout() {
+          return this;
+        }
 
-      myNpmProfile('cmswalker', (err, res) => {
+        set() {
+          return this;
+        }
+
+        end(callback) {
+          return callback(new Error('nope'))
+        }
+      }
+
+      sandbox.stub(request, 'get').returns(new reqStub());
+
+      fetch('cmswalker', (err, res) => {
         assert.ok(!err);
         assert.ok(res);
 
