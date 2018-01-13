@@ -1,6 +1,6 @@
 {
   "name": "my-npm-profile",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "NPM Profile Aggregator",
   "main": "./myNpmProfile.node.js",
   "browser": "./myNpmProfile.js",
