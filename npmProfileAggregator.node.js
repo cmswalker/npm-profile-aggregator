@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["myNpmProfile"] = factory();
+		exports["npmProfileAggregator"] = factory();
 	else
-		root["myNpmProfile"] = factory();
+		root["npmProfileAggregator"] = factory();
 })(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -418,4 +418,4 @@ module.exports = require("superagent");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=myNpmProfile.node.js.map
+//# sourceMappingURL=npmProfileAggregator.node.js.map

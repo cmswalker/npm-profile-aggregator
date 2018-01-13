@@ -2,7 +2,7 @@ const assert = require('assert');
 const sinon = require('sinon');
 const request = require('superagent');
 
-const { fetch } = require('../myNpmProfile.node');
+const { fetch } = require('../npmProfileAggregator.node');
 
 const downloadKeys = ['lastDay', 'lastWeek', 'lastMonth'];
 const schemaKeys = ['author', 'modules'];

@@ -1,15 +1,15 @@
-# my-npm-profile :hatched_chick:
+# npm-profile-aggregator :hatched_chick:
 NPM Profile Aggregator
 
 Node and Browser Compatible, use it anywhere.
 
 Want to test it out?
 
-Checkout the [Demo](https://cmswalker.github.io/my-npm-profile/)
-or drop it into the window using this [script](https://raw.githubusercontent.com/cmswalker/my-npm-profile/master/myNpmProfile.js)
+Checkout the [Demo](https://cmswalker.github.io/npm-profile-aggregator/)
+or drop it into the window using this [script](https://raw.githubusercontent.com/cmswalker/npm-profile-aggregator/master/npmProfileAggregator.js)
 
 ```
-npm install my-npm-profile --save
+npm install npm-profile-aggregator --save
 ```
 
 ### One API method to aggregate your NPM stats
@@ -18,11 +18,11 @@ Everything is pre-bundled into one function
 Usage
 
 ```javascript
-const myNpmProfile = require('my-npm-profile');
+const { fetch } = require('npm-profile-aggregator');
 
 const npmUserName = 'tom123';
 
-myNpmProfile(npmUserName, (err, response) => {
+fetch(npmUserName, (err, response) => {
   // ...that's it!
 });
 ```
@@ -39,7 +39,7 @@ myNpmProfile(npmUserName, (err, response) => {
         lastMonth: Number
     },
     link: String,
-    username: String    
+    username: String
   },
   modules: [
     {
@@ -56,12 +56,12 @@ myNpmProfile(npmUserName, (err, response) => {
       engines: Object,
       repository: Object,
       maintainers: Array,
-      contributors: Array,      
+      contributors: Array,
       scripts: Object,
       keywords: Array,
       ...etc
     },
-    {...}    
+    {...}
   ]
 }
 

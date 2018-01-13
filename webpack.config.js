@@ -14,10 +14,10 @@ const browserConfig = {
     index: path.join(__dirname, 'lib', 'index.js')
   },
   output: {
-    filename: 'myNpmProfile.js',
+    filename: 'npmProfileAggregator.js',
     path: __dirname,
     publicPath: '/',
-    library: 'myNpmProfile',
+    library: 'npmProfileAggregator',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -50,10 +50,10 @@ const nodeConfig = {
     index: path.join(__dirname, 'lib', 'index.js')
   },
   output: {
-    filename: 'myNpmProfile.node.js',
+    filename: 'npmProfileAggregator.node.js',
     path: __dirname,
     publicPath: '/',
-    library: 'myNpmProfile',
+    library: 'npmProfileAggregator',
     libraryTarget: 'umd',
   },
   module: {

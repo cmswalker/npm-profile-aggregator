@@ -1,16 +1,16 @@
 {
-  "name": "my-npm-profile",
-  "version": "1.0.4",
-  "description": "NPM Profile Aggregator",
-  "main": "./myNpmProfile.node.js",
-  "browser": "./myNpmProfile.js",
+  "name": "npm-profile-aggregator",
+  "version": "1.0.0",
+  "description": "NPM Profile Aggregator get npm downloads by username",
+  "main": "./npmProfileAggregator.node.js",
+  "browser": "./npmProfileAggregator.js",
   "module": "./lib/index",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cmswalker/my-npm-profile.git"
+    "url": "git+https://github.com/cmswalker/npm-profile-aggregator.git"
   },
   "bugs": {
-    "url": "cmswalker/my-npm-profile/issues"
+    "url": "cmswalker/npm-profile-aggregator/issues"
   },
   "scripts": {
     "test": "npm run build && ./node_modules/mocha/bin/mocha ./tests/index.js",
@@ -21,8 +21,10 @@
   "keywords": [
     "npm",
     "my-npm",
-    "my-npm-profile",
+    "npm aggregator",
+    "npm-profile-aggregator",
     "my profile",
+    "npm profile",
     "npm-profile",
     "profile",
     "npm user",
