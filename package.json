@@ -1,6 +1,6 @@
 {
   "name": "npm-profile-aggregator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NPM Profile Aggregator get npm downloads by username",
   "main": "./npmProfileAggregator.node.js",
   "browser": "./npmProfileAggregator.js",
