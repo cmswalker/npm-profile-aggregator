@@ -7,7 +7,7 @@ Want to test it out?
 
 Checkout the [Demo](https://cmswalker.github.io/my-npm-profile/) which searches via text input
 
-or drop it into the window using this [script](https://raw.githubusercontent.com/cmswalker/npm-profile-aggregator/master/npmProfileAggregator.js)
+or drop it into the window using this [script](https://raw.githubusercontent.com/cmswalker/npm-profile-aggregator/master/npmProfileAggregator.min.js)
 
 ```
 npm install npm-profile-aggregator --save
