@@ -1,14 +1,31 @@
-import * as myNpmProfile from 'my-npm-profile';
+import { fetch } from 'npm-profile-aggregator';
 
 import normalize from 'milligram';
 import styles from './styles/index.styl';
 
-function getProfile(username, callback) {
-  myNpmProfile(username, callback);
+const getProfile = (username, callback) => {
+  fetch(username, callback);
 }
 
-function grab(selector) {
+const grab = (selector) => {
   return document.getElementById(selector);
+}
+
+const checkLocation = () => {
+  const queries = window.location.search.split('?');
+  const queryStruct = queries.reduce((result, curr) => {
+    const [ key, value ] = curr.split('=');
+
+    if (key !== undefined && value !== undefined) {
+      result[key] = value.toString();
+    }
+
+    return result;
+  }, {});
+
+  if (queryStruct.profile) {
+    submit(queryStruct.profile.trim());
+  }
 }
 
 const $app = grab('app');
@@ -20,15 +37,20 @@ const $profileSection = grab('profile-section');
 
 let lastVal = ''
 
+checkLocation();
+
 $input.addEventListener('keydown', function(event) {
     if (event.key === "Enter") {
-      submit();
+      submit(getValue());
     }
 });
 
-function submit() {
+const getValue = () => {
   const { value } = $input;
+  return value.trim();
+}
 
+function submit(value) {
   if (!value || value === lastVal) {
     return;
   }
@@ -50,7 +72,7 @@ function submit() {
 }
 
 $submit.onclick = (e) => {
-  submit();
+  submit(getValue());
 }
 
 function showLoading(bool) {

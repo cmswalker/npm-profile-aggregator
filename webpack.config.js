@@ -11,7 +11,7 @@ const config = {
   context: __dirname, // string (absolute path!)
 
   entry: {
-    index: path.join(__dirname, 'src/index.js')
+    index: path.join(__dirname, 'src', 'index.js')
   },
 
   output: {
@@ -58,19 +58,15 @@ const config = {
   externals: [],
 
   devtool: 'source-map'
-}
+};
 
-if (isProduction) {
-  // config.plugins.push(
-  //   new webpack.optimize.UglifyJsPlugin({
-  //     compress: true,
-  //     comments: false,
-  //     sourceMap: true
-  //   })
-  // );
-} else {
-
-}
+// config.plugins.push(
+//   new webpack.optimize.UglifyJsPlugin({
+//     compress: true,
+//     comments: false,
+//     sourceMap: true
+//   })
+// );
 
 console.log('config', config);
 
