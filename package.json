@@ -10,7 +10,7 @@
     "url": "git+https://github.com/cmswalker/npm-profile-aggregator.git"
   },
   "bugs": {
-    "url": "cmswalker/npm-profile-aggregator/issues"
+    "url": "https://github.com/cmswalker/npm-profile-aggregator/issues"
   },
   "scripts": {
     "test": "npm run build && ./node_modules/mocha/bin/mocha ./tests/index.js",
@@ -20,22 +20,16 @@
   "license": "ISC",
   "keywords": [
     "npm",
-    "my-npm",
+    "npm api",
     "npm aggregator",
-    "npm-profile-aggregator",
-    "my profile",
+    "npm profile aggregator",
     "npm profile",
-    "npm-profile",
     "profile",
     "npm user",
     "npm user profile",
     "user profile",
-    "user metrics",
     "npm profile",
     "npm downloads",
-    "downloads",
-    "my npm downloads",
-    "metrics",
     "module downloads"
   ],
   "dependencies": {
